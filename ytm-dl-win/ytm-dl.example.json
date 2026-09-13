@@ -1,0 +1,18 @@
+{
+  "//": "ytm-dl.json - настройки для правки в Блокноте. Скопируйте этот файл в ytm-dl.json рядом с ytm.bat и перезапустите ytm.bat (или ytm.bat restart). Если ytm-dl.json есть - он важнее ytm-dl.ini. Ключи '//...' - комментарии.",
+  "proxy": "",
+  "//proxy": "'' = как в ini/системе; 'none' = качать НАПРЯМУЮ (VPN не трогать даже системный); 'http://127.0.0.1:7890' или 'socks5://127.0.0.1:10808' = идти через этот вход (тот же, что у браузера).",
+  "convert": "",
+  "impersonate": "auto",
+  "//convert": "'m4a'|'mp3'|'opus' - принудительная упаковка готового файла, когда плеер его не ест; '' = не надо. Явный copy в панели не перебивается.",
+  "//impersonate": "auto = chrome-отпечаток через curl_cffi (если установлен); off = как в 0.5.5; явная цель передается yt-dlp.",
+  "verify": true,
+  "//verify": "true - проверять скачанный файл декодированием (лечит «размер есть, а не играет»); false - не проверять (быстрее на медленных дисках).",
+  "out": "music",
+  "port": 8765,
+  "organize": "none",
+  "player_client": "",
+  "//player_client": "пусто = лесенка web_safari→default→tv→web_embedded; 'tv' - если хотите жёстко прибить клиент без po-token.",
+  "cookies_from_browser": "",
+  "//cookies_from_browser": "firefox:U:\\soft\\...\\FirefoxPortable\\Data\\profile - путь портативного профиля; или просто экспортируйте cookies.txt в эту папку (подхватится сам)."
+}

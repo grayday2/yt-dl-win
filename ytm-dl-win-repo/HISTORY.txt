@@ -1,0 +1,111 @@
+ba6b502 0.6.17: скроллерами больше не клянутся числа - pickScroller берёт тот контейнер,
+         у которого после пробы ДВИГАЮТСЯ СТРОКИ (getBoundingClientRect); лжецы
+         (overflow:hidden принимает scrollTop, картинка стоит) отсеиваются и в цикле
+         (4 раунда неподвижности = эскалация); после каждого листа шлётся scroll-событие
+         и синтетическое колесо над списком (тот же сигнал, что от руки); последнее
+         средство - само окно (window.scrollTo). Ручной-работает/программный-нет -
+         лечится ровно этим; docs 5.5.33; тег v0.6.17
+e3bab46 0.6.16: прокрутка перестала обгонять выдачу чанков YouTube (шаг 85% окна, 260мс,
+         спиннер-ожидание не копит «стабильность», watchdog мёртвого контейнера,
+         прыжок в настоящий низ перед сдачей, прогресс «собрано N из M»);
+         префикс «Артист - » режется при всех склейках («, »/« и »/« & »/« feat.») -
+         фита «1nonly, Shakewell - трек» больше нет; «Дорожка: 0» добита (track:[0]);
+         режим record удалён по просьбе владельца; лестницы клиентов сведены
+         в одну константу CLIENT_CHAIN (url+playlist); docs 5.5.32
+27ce976 0.6.15: сбор читает относительные href lockup-строк и __data/shadowRoot (боевой «0 строк» был из-за слэша);
+         видимый спиннер = «страница догружает» - вердикт «конец» запрещён (лечит «споткнулась
+         о первую подгрузку»); тупик кандидата = эскалация к следующему скроллеру; total из
+         шапки листа задает цель и ранний выход; полностью отрисованный лист (альбом,
+         20-трековик артиста) стартует page-fast - без companion/browse/скролла; «стоп» -
+         красный YouTube-редный в общем ряду кнопок; docs 5.5.31
+86867773 0.6.14: скроллер большого листа выбирается пробой scrollTop (угадывание селектором
+         кончилось: «69 строк и ни одного листания» больше нет, выбор виден в логе);
+         « и »/« & » между артистами -> список через запятую; префикс «Артист - » в названии
+         режется у источника (stripArtistPrefix) и NBSP-терпимым clean_title компаньона;
+         повторное нажатие «листа» не останавливает летящую очередь («само на 11» - было оно),
+         listBusy гасит параллельные сборы, domOnly ставится до начала прокрутки; docs 5.5.30
+788c3df8 0.6.13: сбор и скролл якорятся контейнером ГЛАВНОГО списка (открытая панель «Следующее»
+         больше не перехватывает: liked отдаёт все 1884 строк, а не 100 из панели); каскад
+         метаданных сливает по id и строка DOM сверху get_queue (альбом больше не артист и не
+         префикс имени файла); панель читает subtitle+videoInfo; провалившийся companion+browse
+         лист запоминается в сессии (domOnly) и сразу идёт в DOM-сбор; docs 5.5.29
+281a3665 0.6.12: byline ищется по признаку разделителя (длительности/индексы из rowTexts отфильтрованы - «1:25» в TPE1 больше не живёт); нулевые числа не пишутся в теги (Explorer не покажет «№ 0»), track «3/12»->3; docs 5.5.28
+e29ad2d7 0.6.11: pageScroller ищет настоящий скроллер поднятием от строки (792 из 1884 были не лимитом YouTube, а коротким документом); clean_title срезает «Артист - » из TIT2 и имени файла синхронно; «0» в поле proxy документирован в панели и ini; ini вылечен от одиночных \r (TC-линтер); удалён COPILOT-BRIEF.md; README получил раздел 0 для новых людей
+76ef09b7 0.6.10: mp3-теги живы (имена фреймов->классы mutagen; read-back юнит), ©gen вместо gnre, TPE2/aART-конвенция, year/track/genre из info.json когда есть, скролл-бюджет 400->1000, byline «·»/«и» юниты; docs 5.5.26
+fd2497da 0.6.9: потолки browse 800->5000 и очереди 400->2000; page-dom накапливает ленивую ленту скроллом (кап=«сколько»); pageListRows/splitByline: byline «Artist · Album» едет в job -> теги TPE1/TALB; parseQueuePayload читает longBylineText; docs 5.5.25
+7af0b45 readme: опечатки 5.5.23
+c8b8e18 0.6.7: errors=replace в _run_tracked + пустой вывод не вердикт (ложный лимит из-за 0x92); «стоп» в шапке панели; liked: browse FEmusic_liked_* от имени страницы + уважение playlistItems в фолбэке; docs 5.5.23
+16abe41 0.6.6: get_queue как источник очереди (хук fetch+xhr + запрос от имени страницы); ytcfgVal - менеджер YTM (.get/data_) вместо прямого свойства; selfAskPlayer читает окно страницы; docs 5.5.22
+7a0c588 0.6.5: липкий клиент (_WIN): победитель сессии первым в лестнице и в вариантах листа; out.append(k) вместо (c,e) - sticky не дублирует шаг; docs 5.5.21 + win-буллет
+7be6add 0.6.4: id-фолбэк очереди «Следующее», кнопка «стоп» + POST /job/<id>/cancel, терминальный cancelled в pollJob, pump монитора на старте; docs: 5.5.19/20, win-буллеты; + adopt 0.6.0-0.6.3
+ca0ccd7 0.6.3: adopt upstream (ThrottleQueue + queue-stop ctl + browser-mode fixes + probe) from grayday2/yt-dl-win
+5a174ee docs: HANDOFF-NEXT (цели 0.6.0 + анти-грабли) + HISTORY.txt; PLACE-файлы поставки с точными ссылками (python-build-standalone, gyan ffmpeg)
+a42e59e docs: бриф срез проблем 0.5.13 для внешнего ассистента (Copilot)
+5bd2bb4 0.5.13: живая очередь (ожидание каждой задачи + стоп на 3 ошибках), вежливое добивание плейлиста, тултипы про 128k/320k и где работает очередь
+c8c9295 0.5.12: lost-позиции добиваются (id из логгера), прогресс при нулевой закачке, ytcfg из окна страницы, теги/обложка через info.json
+bd9b0b3 0.5.11: safari=шаг 1 и по умолчанию, плейлист добивает упавших одиночным путём, лист через /browse вкладки, прогон стал методом очереди, обложка в ytdlp-режиме
+063983c 0.5.10: корень «(1) в пустой папке» - двойной dest_for после транскода
+a287302 0.5.9: чекбокс запаса управляет честно; «прогон через плеер»; обновление без переустановки
+8d294dd 0.5.8+: дедуп «(1)» добит и в auto-пути (handle_url)
+6f9ec8b 0.5.8: дедуп «(1)» добит в плейлисте; единый установщик
+c7f025b 0.5.7: правки по боевому журналу
+1692560 README: финальные хэши архивов 0.5.6
+1f0e168 0.5.6: curl_cffi impersonation, alt-host checkbox, panel sections + chips
+79620b9 0.5.5: host fallback triggers on limit marker from ANY ladder attempt
+40b47f8 0.5.5: playlist host round via www + menu label cleanup
+cbb02ab 0.5.4: host fallback to www.youtube.com, ytm.bat config, rename playlist button
+1efcce5 0.5.3: честная сдача при лимите YouTube «слишком много устройств» (accountThrottled в auto), html-вердикт различает «cookies нет» / «cookies есть, упираются», humanize «page needs to be reloaded» + log cosmetic
+f16cd29 README: счётчики 292/439 + строка архивов 0.5.2 (21 файл)
+6ff8c61 0.5.2: media verify (no more unplayable m4a), proxy=none, ytm-dl.json, convert=, userscript log mirror, per-attempt ladder logging, VER from GM_info
+6c6f743 0.5.1: opus отдельным режимом и в auto: finalize('opus') = remux webm→.opus без перекодирования (userscript шлёт opus вместо copy), хук YTMDL_NO_FFMPEG, хинт «пустые форматы без cookies», факты по Android в README
+7ce5527 0.5.0: webm→формат до тегирования (opus remux без потерь, m4a 256k, mp3 LAME V0+APIC), обложка в .opus через METADATA_BLOCK_PICTURE, extractor_args словарём + лестница клиентов в плейлисте (чинит 10/10 «The page needs to be reloaded»), фикс имён covr-временников в write_tags; userscript не форсит tv
+b9a0260 0.4.9: обложки не падают, cookies.txt подхватывается, web_safari первым, «пусто» = ошибка
+7b316a1 docs(win): как обновиться на 0.4.8 + как выглядит строка PortableApps в ini/README
+835a615 0.4.8: портативный Firefox (PortableApps) — профиль теперь передаётся путём
+3ec165b 0.4.7: PySocks в поставке, socks5 разрешён, системный прокси наследуется
+ca4344d 0.4.7: proxy= доезжает до browser/playlist/обложек, selftest говорит «чем ты ходишь»
+3555d31 README: sha256 архива после пересборки 0.4.7
+7ff14af 0.4.7: self-check проверяет сам cookies.txt (cookies_report) и selftest зовёт --check с ключами из ini
+4ad161f README: sha256 после пересборки (6bd45d5/1072250)
+1072250 README: счётчики тестов 264/289 и строки про /cover, 414, styp
+6bd45d5 0.4.6: styp/moof - это mp4; pr больше не в query (414); обложка отдельной операцией
+3ef7c64 хук ставился в песочницу и слишком поздно: главный источник «форматов нет»
+63086c7 README: sha256 архивов (содержимое = 224218b/a16f5a0)
+a16f5a0 README: откуда берётся player response, когда хук опоздал
+224218b handle_url: порядок аргументов + перехват player response из страницы
+db1e1c2 рычаги против бот-чека: proxy, лестница клиентов, заголовки плеера; +url из videoId
+9e260b0 режим ytdlp + разбор исходников оригиналов: почему у них не было бот-чека
+f1df6e8 README: sha256 архивов после пересборки (содержимое то же, что в d2f9d20)
+d2f9d20 companion+userscript: HTML-бот-чек больше не притворяется треком
+1e46dc6 start.bat: автономный запускалка + ytm-run.bat для отладки «окно закрылось, лога нет»
+c53582e start.bat/ytm.bat: два последних механизма молчаливого закрытия окна
+b54a531 README: почему архивы и wheels не в git (119 МБ истории ломали снапшот workspace)
+d8e98d9 тест живого плейлиста: wall-clock вместо 200 итераций, items=1, за собой убираем
+4fd30bf gitignore: формулировка
+e4fb365 git: win/wheels/*.whl тоже скачиваются одной командой - не тащим 3.4 МБ бинарей в истории
+cdec40d git: больше не хранить пересобираемые бинари (zip/tar.gz/dist) — именно они раздували .git до 119 МБ
+b6eb160 фиксация живого дерева после лимита снапшота + архивы и dist больше не в git
+653ffb6 sync_readme_archives: «N файлов» считается по членам архива, а не по dist/
+37fd96b README: хэш архива после пересборки (31dffc21eb9b…)
+975b1bd сборка: pip-шаг офлайн-проверки больше не роняет build на OOM; README 223/224
+eca08ec start.bat больше не зависит от PowerShell: --stop-other + --log-file в компаньоне
+d3629b8 win: органы управления процессом (ytm.bat status/stop/kill/restart/uninstall)
+26c8376 get-deno.bat (скачивает deno + сверяет sha256, или копирует уже стоящий node) и player_client=tv как путь без загрузок; userscript 0.3.9: player= в панели
+fa85930 diagnostic.bat: отчёт в файл (состав папки, версии, живой /hello, хвосты логов) + README про CSP-причину
+b7d28f7 0.3.8: ensureUi без innerHTML (CSP-песочница Tampermonkey на Firefox блокировала setter и убивался весь UI); mock DOM с createElement-деревом; 27 контролов проверяются на живом DOM
+8f20a19 0.3.7: fetch-фолбэк когда GM_xmlhttpRequest не разрешён + фильтр чужих ошибок в onerror; companion пишет ytm-dl-server.log; start.bat: -u -X utf8 и копия трейса на Desktop; линтер .bat вынесен в tools/lint_bats.py (тестируется на синтетике)
+5cc56bb ytm-dl.ini: подсказка про ytm-dl-log.txt
+3c757fc userscript 0.3.6: хоткеи/меню до ensureUi, null-safe вешалки, fatal-баннер на странице; start.bat: ytm-dl-log.txt с метками этапов
+59de6d7 userscript 0.3.5: 9 селекторов плеер-бара + плавающая кнопка и ui.mounted/floating/host в диагностике (чиним «ничего не происходит»)
+c086c26 js-runtime из app\bin (deno.exe без установки) + cookies_file для Firefox; start.bat: app\bin в PATH; userscript 0.3.4: панель показывает cookies= и runtime=
+34f31b4 win: SHPARGALKA.txt — 6 шагов для тех, кто не хочет читать README (Tampermonkey, ffmpeg-подпапка, cookies)
+af900ae wheels yt-dlp+mutagen в архиве: установка пакетов офлайн (+install-packages-offline.bat, setup.ps1 -Offline, pkg_version через importlib.metadata)
+643d901 архивы сборки кладутся в корень проекта (+tar.gz), README обновляет хэши сам
+002bf92 README: sha256/размер финального zip
+cc3806d fix: cookies_from_browser из ini/--flag доезжает до job'а (+cmd в logs, shlex)
+9ae4e7e start.bat: кавыки путей (PYEXE/PYARGS), lint .bat в сборке, js_runtime в /hello, панель читает архив+runtime
+0b5052d портативная сборка Windows: start.bat/setup.ps1/test.bat/ini, ROOT-поиск python+ffmpeg, --check, dist zip
+f79b20c README: панель (dedup/items/архив) + меню-команды
+f34e641 playlist: абсолютный outtmpl, учёт lost/failed, webm→m4a, covr из sidecar, общий формат архива (yt-dlp 'youtube <id>'), items-диапазон
+a8a2fb6 playlist: честный отчёт (failed vs archived), живой тест против yt-dlp, README §5.4/§7
+4ce773b v0.3.2: обход плейлиста/liked + архив «уже скачано» (dedup)
