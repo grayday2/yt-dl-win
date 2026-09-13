@@ -1,8 +1,0 @@
-BINARYS HERE - the folder app\bin must contain:
-  ffmpeg.exe   (required)
-  ffprobe.exe  (required)
-  deno.exe     (optional - po-token helper; "ytm.bat deno" downloads it)
-Download ffmpeg+ffprobe (official Windows build, same URL setup.ps1 uses):
-  https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip
-  -> take the two .exe from the archive's bin\ folder and drop them HERE.
-Easiest: run setup.ps1 - it downloads and unpacks them itself.

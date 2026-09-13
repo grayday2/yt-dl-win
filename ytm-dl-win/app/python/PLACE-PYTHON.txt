@@ -1,8 +1,0 @@
-PORTABLE PYTHON - put the folder here as: app\python\python.exe
-What you need: CPython 3.12 x86_64 windows "install_only" build
-(pip included; companion also needs the offline wheels from wheels\).
-Download (official, same URL setup.ps1 uses):
-  https://github.com/astral-sh/python-build-standalone/releases/download/20260901/cpython-3.12.14%2B20260901-x86_64-pc-windows-msvc-install_only.tar.gz
-Easiest: run setup.ps1 (double-click) - it downloads this and installs
-the wheels itself. Manual way: unpack so that app\python\python.exe exists,
-then run install-packages-offline.bat.
