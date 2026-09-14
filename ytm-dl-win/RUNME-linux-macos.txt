@@ -1,1 +1,0 @@
-Same companion works on Linux/macOS:  python3 app/companion.py --out ./music --check
